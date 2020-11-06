@@ -60,7 +60,6 @@ class ZSIproject:
 
         iter = 0
         ilekrokow = 50000
-        print("dziala ?")
         while iter < ilekrokow:
             rand_letter = np.random.randint(24)
             rand_nr = np.random.randint(10)
@@ -70,7 +69,8 @@ class ZSIproject:
                     CK_list.append(1)
                 else:
                     CK_list.append(0)
-            wejsciowe = self.vector.change_255_to_0_1(self.vector.png_to_array(dane[rand_letter][rand_nr]))
+            wejsciowe = self.vector.change_255_to_0_1(self.vector.png_to_array(dane[rand_letter][rand_nr])).flatten()
+            print(wejsciowe)
             self.teach_01(wejsciowe, CK_list)
             if iter % 5000 == 0:
                 helper = self.layer3.get_outputs()

@@ -17,10 +17,10 @@ class NewNeuron:
 
     #   ---------------------------------------------------- Propagacja w przód
     def add_wejscia(self, amount):
-        self.wejscia = np.zeros(amount + 1)
-        self.wagi = np.zeros(amount + 1)
-        self.popwagi = np.zeros(amount + 1)
-        self.deltawag = np.zeros(amount + 1)
+        self.wejscia = np.zeros(amount + 1, dtype=float)
+        self.wagi = np.zeros(amount + 1, dtype=float)
+        self.popwagi = np.zeros(amount + 1, dtype=float)
+        self.deltawag = np.zeros(amount + 1, dtype=float)
         self.wejscia[0] = 1
 
         for i in range(len(self.wagi)):

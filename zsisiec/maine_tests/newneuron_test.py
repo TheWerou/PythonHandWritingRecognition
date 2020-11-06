@@ -66,22 +66,23 @@ def prop_tyl_test():
     layer_2.add_neuron(1, 2)
 
     A = np.zeros((4, 4))
-    A[0, 0] = 0
-    A[0, 1] = 0
+    A[0, 0] = 0.1
+    A[0, 1] = 0.2
     A[0, 2] = 1
 
-    A[1, 0] = 0
-    A[1, 1] = 1
+    A[1, 0] = 0.2
+    A[1, 1] = 0.95
     A[1, 2] = 0
 
-    A[2, 0] = 1
-    A[2, 1] = 0
+    A[2, 0] = 0.98
+    A[2, 1] = 0.22
     A[2, 2] = 0
 
-    A[3, 0] = 1
-    A[3, 1] = 1
+    A[3, 0] = 0.97
+    A[3, 1] = 0.98
     A[3, 2] = 1
     # faza prop przod
+
     while iter < kroki:
         i = np.random.randint(4)
         layer_1.use_neuron_input([A[i, 0], A[i, 1]])    # tu wprowadzic dane wejsciowe
@@ -143,6 +144,20 @@ def prop_tyl_test():
     print(pom)
 
 
+def big_input_test():
+    layer1 = NeuronLayer()
+    layer2 = NeuronLayer()
+    layer3 = NeuronLayer()
+    layer1.add_neuron(784, 1)
+    layer2.add_neuron(143, 784)
+    layer3.add_neuron(24, 143)
+
+    layer1.use_neuron_input([1, 1])
+    layer1.calc_neurons_output()
+
+    layer2.use_neuron_input(layer1.generate_list_of_outputs())
+    layer2.calc_neurons_output()
+    print(layer2.generate_list_of_outputs())
 
 #prop_przod_test()
 #upgraded_prop_przod()
