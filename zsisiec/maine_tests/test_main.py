@@ -31,6 +31,8 @@ def test_array_255_to_0_1():
     print(vector.change_255_to_0_1(img_array))
 
 
+
+# dopisac zmiane z sieci 2d na 1d
 #test_get_ck()
 #test_get_img_form_letter()
 #test_png_to_array()
