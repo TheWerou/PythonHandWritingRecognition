@@ -68,19 +68,19 @@ def prop_tyl_test():
     A = np.zeros((4, 4))
     A[0, 0] = 0
     A[0, 1] = 0
-    A[0, 2] = 0
+    A[0, 2] = 1
 
     A[1, 0] = 0
     A[1, 1] = 1
-    A[1, 2] = 1
+    A[1, 2] = 0
 
     A[2, 0] = 1
     A[2, 1] = 0
-    A[2, 2] = 1
+    A[2, 2] = 0
 
     A[3, 0] = 1
     A[3, 1] = 1
-    A[3, 2] = 0
+    A[3, 2] = 1
     # faza prop przod
     while iter < kroki:
         i = np.random.randint(4)
@@ -105,7 +105,7 @@ def prop_tyl_test():
         layer_2.calc_wspoczynikas_wyjsciowy([A[i, 2]]) # tu wprowadzic dane wejsciowe
 
         layer_1.calc_pochodnas()
-        layer_1.calc_wspoczynikas_posredni(layer_2.generate_list_of_wspolczyniki_x_wagi())
+        layer_1.calc_wspoczynikas_posredni(layer_2.generate_list_of_wspolczyniki_x_wagi(layer_1.get_amount_of_neurons()))
 
         layer_2.update_wagas_in_layer()
         layer_1.update_wagas_in_layer()
@@ -141,11 +141,8 @@ def prop_tyl_test():
     layer_2.calc_neurons_output()
     print(layer_2.get_outputs())
     print(pom)
-    print("-----------------------------------------------------")
-    basic = BasicLayer()
-    helper = basic.basic_main()
-    print(helper)
-    print("-----------------------------------------------------")
+
+
 
 #prop_przod_test()
 #upgraded_prop_przod()

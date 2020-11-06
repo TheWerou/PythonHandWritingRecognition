@@ -1,6 +1,6 @@
 
 from PIL import Image
-from numpy import asarray
+from numpy import asarray, array
 import ntpath
 import random
 import os
@@ -16,6 +16,13 @@ class VektorEKiCK:
         self.data_storage_folder = data_storage_folder
         self.amount_of_data_in_vector = amount_of_data_in_vector
         self.data_interval = data_interval        # counted from 0
+
+    def change_255_to_0_1(self, img_list):
+        helper = array(img_list, dtype=float)
+        for i in range(len(helper[:])):
+            for k in range(len(helper[i][:])):
+                helper[i][k] = helper[i][k] / 255
+        return helper
 
     def make_letter_list(self, amount_of_img_in_list):
         output_list = []

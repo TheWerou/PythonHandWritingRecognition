@@ -45,14 +45,19 @@ class NeuronLayer:
 
         return output_list
 
-    def generate_list_of_wspolczyniki_x_wagi(self):
+    def generate_list_of_wspolczyniki_x_wagi(self, nr_of_prev_neurons):     # ta metoda tez jest do poprawy
         output_list = []
+        suma = 0
+        for i in range(nr_of_prev_neurons):
+            output_list.append(0)
 
-        for i in self.list_fo_neurons:
-            suma = 0
-            for k in range(self.amount_of_wages):
-                suma += i.calc_wspo_x_wag(k)
-            output_list.append(suma)
+        for i in range(len(self.list_fo_neurons)):
+            k = 1
+            while k < self.amount_of_wages:
+                suma += self.list_fo_neurons[i].calc_wspo_x_wag(k)
+                output_list[k - 1] += suma
+                k += 1
+                suma = 0
 
         return output_list
 
@@ -66,11 +71,9 @@ class NeuronLayer:
             i.calc_wspolczynik_wyjsciowy(list_of_correct_outputs[a])
             a += 0
 
-    def calc_wspoczynikas_posredni(self, list_suma_waga_x_wspolczynik):
-        a = 0
-        for i in self.list_fo_neurons:
-            i.calc_wspolczynik_posredni(list_suma_waga_x_wspolczynik[a])
-            a += 0
+    def calc_wspoczynikas_posredni(self, list_suma_waga_x_wspolczynik):     # przez ta metode jest blad sieci
+        for i in range(len(self.list_fo_neurons)):
+            self.list_fo_neurons[i].calc_wspolczynik_posredni(list_suma_waga_x_wspolczynik[i])
 
     def update_wagas_in_layer(self):
         for i in self.list_fo_neurons:
@@ -81,3 +84,6 @@ class NeuronLayer:
         for i in self.list_fo_neurons:
             output.append(i.get_output())
         return output
+
+    def get_amount_of_neurons(self):
+        return self.amount_of_neurons
