@@ -5,6 +5,7 @@ import math
 from zsisiec.BasicLayer import BasicLayer
 from zsisiec.AInetworkClasses.NewNeuron import NewNeuron
 from zsisiec.AInetworkClasses.NeuronLayer import NeuronLayer
+from zsisiec.toolfornetwork.VektorEkiCK import VektorEKiCK
 
 
 def prop_przod_test():
@@ -152,13 +153,23 @@ def big_input_test():
     layer2.add_neuron(143, 784)
     layer3.add_neuron(24, 143)
 
-    layer1.use_neuron_input([1, 1])
+    vector = VektorEKiCK(r"C:\Users\wojte\OneDrive\Pulpit\Programowanie\Python\ZSI\Data\Obrazki_do_uczenia")
+    img_letter = vector.preper_ek_ck("A")
+    helper = vector.png_to_array(img_letter)
+    input = vector.change_255_to_0_1(helper).flatten()
+    print(input)
+    layer1.use_neuron_input(input)
     layer1.calc_neurons_output()
 
     layer2.use_neuron_input(layer1.generate_list_of_outputs())
     layer2.calc_neurons_output()
+
+    layer3.use_neuron_input(layer2.generate_list_of_outputs())
+    layer3.calc_neurons_output()
     print(layer2.generate_list_of_outputs())
 
 #prop_przod_test()
 #upgraded_prop_przod()
-prop_tyl_test()
+#prop_tyl_test()
+big_input_test()
+
