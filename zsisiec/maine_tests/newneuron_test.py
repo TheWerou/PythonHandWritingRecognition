@@ -157,8 +157,7 @@ def big_input_test():
     img_letter = vector.preper_ek_ck("A")
     helper = vector.png_to_array(img_letter)
     input = vector.change_255_to_0_1(helper).flatten()
-    print(input)
-    layer1.use_neuron_input(input)
+    layer1.use_neuron_input_one_to_one(input)
     layer1.calc_neurons_output()
 
     layer2.use_neuron_input(layer1.generate_list_of_outputs())
@@ -166,7 +165,7 @@ def big_input_test():
 
     layer3.use_neuron_input(layer2.generate_list_of_outputs())
     layer3.calc_neurons_output()
-    print(layer2.generate_list_of_outputs())
+    print(layer3.generate_list_of_outputs())
 
 #prop_przod_test()
 #upgraded_prop_przod()

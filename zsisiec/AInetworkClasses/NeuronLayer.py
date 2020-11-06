@@ -32,7 +32,7 @@ class NeuronLayer:
 
     def use_neuron_input_one_to_one(self, list_of_input):
         for i in range(len(self.list_fo_neurons)):
-            self.list_fo_neurons[i].use_wejscia(list_of_input[i])
+            self.list_fo_neurons[i].use_wejscie_one(list_of_input[i])
 
     def calc_neurons_output(self):
         for i in self.list_fo_neurons:

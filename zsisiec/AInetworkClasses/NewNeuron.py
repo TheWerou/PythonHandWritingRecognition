@@ -28,9 +28,12 @@ class NewNeuron:
 
     def use_wejscia(self, list_of_input):
         a = 0
-        while a < len(list_of_input):   # problem ze zmieno przecinkowymi
+        while a < len(list_of_input):
             self.wejscia[a + 1] = list_of_input[a]
             a += 1
+
+    def use_wejscie_one(self, list_of_input):
+        self.wejscia[1] = list_of_input
 
     def set_wagi(self, wagi):
         i = 0
