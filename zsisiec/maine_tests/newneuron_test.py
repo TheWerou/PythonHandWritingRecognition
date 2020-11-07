@@ -167,6 +167,11 @@ def big_input_test():
     layer3.calc_neurons_output()
     print(layer3.generate_list_of_outputs())
 
+
+def gpu_calc_test():
+    pass
+
+
 #prop_przod_test()
 #upgraded_prop_przod()
 #prop_tyl_test()
