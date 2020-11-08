@@ -3,6 +3,8 @@ import json
 import os
 import shutil
 
+import numpy as np
+
 
 class ReadCSV:
     def __init__(self, adress):
@@ -24,8 +26,12 @@ class ReadCSV:
         except FileExistsError:
             return False
 
-    def write_csv_line(self):
-        pass
+    def write_neuron_to_csv(self, file_name, list_of_neurons, type_of_in='w+'):
+        file_name = self.file_path + '\\' + file_name + '.csv'
+        with open(file_name, type_of_in, newline='') as file:
+            for i in list_of_neurons:
+                writer = csv.writer(file)
+                writer.writerow(i)
 
     def write_csv_file(self, file_name, list_to_save, type_of_in='w+'):
         file_name = self.file_path + '\\' + file_name + '.csv'
@@ -90,7 +96,6 @@ class ReadCSV:
             output = json.load(file)
 
         return output
-
 
     def delete_file(self, file_name):
         try:

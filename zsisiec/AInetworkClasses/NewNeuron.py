@@ -86,6 +86,9 @@ class NewNeuron:
     def get_wspolczynik(self):
         return self.wspolczynik
 
+    def get_wagas(self):
+        return self.wagi
+
     def update_wagas(self):
         for i in range(len(self.wagi)):
             self.popwagi[i] = self.wagi[i]

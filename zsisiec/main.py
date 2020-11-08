@@ -3,6 +3,7 @@ import string
 import numpy as np
 
 from zsisiec.AInetworkClasses.NeuronLayer import NeuronLayer
+from zsisiec.toolfornetwork.ReadCSV import ReadCSV
 from zsisiec.toolfornetwork.VektorEkiCK import VektorEKiCK
 
 
@@ -57,7 +58,7 @@ class ZSIproject:
 
     def main(self):
         dane = self.vector.make_letter_list(10)
-
+        csv_reader = ReadCSV(r"C:\Users\wojte\OneDrive\Pulpit\Programowanie\Python\ZSI\Data\Siec_neuronowa")
         iter = 0
         ilekrokow = 50000
         while iter < ilekrokow:
@@ -78,6 +79,10 @@ class ZSIproject:
                     self.blad_sieci += CK_list[k] - helper[k]
                 print(self.blad_sieci)
             iter += 1
+
+        csv_reader.write_neuron_to_csv("warstwa_1_wejsciowa", self.layer1.generate_wagas_table())
+        csv_reader.write_neuron_to_csv("warstwa_2_posrednia", self.layer1.generate_wagas_table())
+        csv_reader.write_neuron_to_csv("warstwa_3_wyjsciowa", self.layer1.generate_wagas_table())
 
 
 program = ZSIproject()

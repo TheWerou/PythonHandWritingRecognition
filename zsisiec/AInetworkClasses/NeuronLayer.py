@@ -85,5 +85,17 @@ class NeuronLayer:
             output.append(i.get_output())
         return output
 
+    def generate_wagas_table(self):
+        output_list = []
+        for i in self.list_fo_neurons:
+            output_list.append(i.get_wagas())
+        return output_list
+
     def get_amount_of_neurons(self):
         return self.amount_of_neurons
+
+    def get_neurons(self):
+        return self.list_fo_neurons
+
+    def get_amount_of_wagas(self):
+        return self.amount_of_wages

@@ -1,3 +1,5 @@
+from zsisiec.AInetworkClasses.NeuronLayer import NeuronLayer
+from zsisiec.toolfornetwork.ReadCSV import ReadCSV
 from zsisiec.toolfornetwork.VektorEkiCK import VektorEKiCK
 
 
@@ -39,10 +41,18 @@ def test_2d_to_1d_array():
     print(helper)
 
 
+def layer_to_csv():
+    csv_reader = ReadCSV(r"C:\Users\wojte\OneDrive\Pulpit\Programowanie\Python\ZSI\Data\Siec_neuronowa")
+    layer1 = NeuronLayer()
+    layer1.add_neuron(784, 1)
+    csv_reader.write_neuron_to_csv("test_neuron_layer", layer1.generate_wagas_table())
+
+
 #dopisac zmiane z sieci 2d na 1d
 #test_get_ck()
 #test_get_img_form_letter()
 #test_png_to_array()
 #test_make_letter_list()
 #test_array_255_to_0_1()
-test_2d_to_1d_array()
+#test_2d_to_1d_array()
+layer_to_csv()
