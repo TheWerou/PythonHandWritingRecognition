@@ -48,6 +48,18 @@ def layer_to_csv():
     csv_reader.write_neuron_to_csv("test_neuron_layer", layer1.generate_wagas_table())
 
 
+def csv_to_layer():
+    csv_reader = ReadCSV(r"C:\Users\wojte\OneDrive\Pulpit\Programowanie\Python\ZSI\Data\Siec_neuronowa")
+    print(len(csv_reader.read_neuron_to_csv("warstwa_1_wejsciowa")))
+    print(csv_reader.read_neuron_to_csv("warstwa_1_wejsciowa"))
+
+
+def test_append_data_to_csv():
+    csv_reader = ReadCSV(r"C:\Users\wojte\OneDrive\Pulpit\Programowanie\Python\ZSI\Data\Siec_neuronowa")
+    helper = [1, 2]
+    csv_reader.write_log_to_csv("log_bledu", helper)
+
+
 #dopisac zmiane z sieci 2d na 1d
 #test_get_ck()
 #test_get_img_form_letter()
@@ -55,4 +67,6 @@ def layer_to_csv():
 #test_make_letter_list()
 #test_array_255_to_0_1()
 #test_2d_to_1d_array()
-layer_to_csv()
+#layer_to_csv()
+#csv_to_layer()
+test_append_data_to_csv()

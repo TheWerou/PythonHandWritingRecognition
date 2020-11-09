@@ -26,11 +26,28 @@ class ReadCSV:
         except FileExistsError:
             return False
 
+    def read_neuron_to_csv(self, file_name):
+        file_name = self.file_path + '\\' + file_name + '.csv'
+        output_list = []
+
+        with open(file_name, 'r') as file:
+            reader = csv.reader(file)
+            iter = 0
+            for row in reader:
+                output_list.append(row)
+        return output_list
+
+    def write_log_to_csv(self, file_name, list_of_neurons, type_of_in='a+'):
+        file_name = self.file_path + '\\' + file_name + '.csv'
+        with open(file_name, type_of_in, newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(list_of_neurons)
+
     def write_neuron_to_csv(self, file_name, list_of_neurons, type_of_in='w+'):
         file_name = self.file_path + '\\' + file_name + '.csv'
         with open(file_name, type_of_in, newline='') as file:
+            writer = csv.writer(file)
             for i in list_of_neurons:
-                writer = csv.writer(file)
                 writer.writerow(i)
 
     def write_csv_file(self, file_name, list_to_save, type_of_in='w+'):
