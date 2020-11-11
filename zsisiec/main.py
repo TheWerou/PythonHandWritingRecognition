@@ -55,10 +55,14 @@ class ZSIproject:
 
         return [self.layer1, self.layer2, self.layer3]
 
-    def save_wagas(self):
+    def save_wagas(self, ck=55):
         self.csv_reader.write_neuron_to_csv("warstwa_1_wejsciowa", self.layer1.generate_wagas_table())
         self.csv_reader.write_neuron_to_csv("warstwa_2_posrednia", self.layer2.generate_wagas_table())
         self.csv_reader.write_neuron_to_csv("warstwa_3_wyjsciowa", self.layer3.generate_wagas_table())
+        helper = self.layer3.get_outputs()
+        helper.append(ck)
+        self.csv_reader.write_log_to_csv("log_outputs", helper)
+        print("zapis")
 
     def read_wagas(self):
         self.layer1.set_neuron_wagi(self.csv_reader.read_neuron_to_csv("warstwa_1_wejsciowa"))
@@ -70,9 +74,11 @@ class ZSIproject:
         self.read_wagas()
         list_of_blad = []
         iter = 0
-        ilekrokow = 500
+        ilekrokow = 50000
         blad = 0
         while iter < ilekrokow:
+            blad = 0
+            list_of_blad = []
             rand_letter = np.random.randint(24)
             rand_nr = np.random.randint(10)
             CK_list = []
@@ -87,13 +93,16 @@ class ZSIproject:
             self.layer2 = helper[1]
             self.layer3 = helper[2]
             helper = self.layer3.get_outputs()
-            if iter % 5 == 0:
+            if iter % 50 == 0:
                 for k in range(len(self.layer3.get_outputs())):
-                    blad += CK_list[k] - helper[k]
-                list_of_blad.append(math.fabs(blad))
-                print(math.fabs(blad))
-                self.save_wagas()
+                    blad += math.fabs(CK_list[k] - helper[k])
+                list_of_blad.append(blad)
+                print(blad)
+                self.save_wagas(rand_letter)
                 self.csv_reader.write_log_to_csv("log_bledu", list_of_blad)
+            if iter % 20 == 1:
+                self.save_wagas(rand_letter)
+
             print(iter)
             iter += 1
 

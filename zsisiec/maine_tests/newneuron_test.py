@@ -101,7 +101,9 @@ def prop_tyl_test():
             print("Ck - " + str([A[i, 2]]))
             print("layer1 outputs - " + str(layer_1.get_outputs()))
             print("layer2 outputs - " + str(layer_2.get_outputs()))
-
+            print("------------------Bład-------------------------------")
+            print(A[i, 2] - layer_2.get_outputs())
+            print("-----------------------------------------------------")
         # faza prop tyl
         layer_2.calc_pochodnas()
         layer_2.calc_wspoczynikas_wyjsciowy([A[i, 2]]) # tu wprowadzic dane wejsciowe
