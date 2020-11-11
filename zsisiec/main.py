@@ -70,7 +70,7 @@ class ZSIproject:
         self.layer3.set_neuron_wagi(self.csv_reader.read_neuron_to_csv("warstwa_3_wyjsciowa"))
 
     def main(self):
-        dane = self.vector.make_letter_list(10)
+        dane = self.vector.make_letter_list(50)
         self.read_wagas()
         list_of_blad = []
         iter = 0
@@ -80,7 +80,7 @@ class ZSIproject:
             blad = 0
             list_of_blad = []
             rand_letter = np.random.randint(24)
-            rand_nr = np.random.randint(10)
+            rand_nr = np.random.randint(50)
             CK_list = []
             for i in range(24):
                 if i == rand_letter:
@@ -92,8 +92,8 @@ class ZSIproject:
             self.layer1 = helper[0]
             self.layer2 = helper[1]
             self.layer3 = helper[2]
-            helper = self.layer3.get_outputs()
             if iter % 50 == 0:
+                helper = self.layer3.get_outputs()
                 for k in range(len(self.layer3.get_outputs())):
                     blad += math.fabs(CK_list[k] - helper[k])
                 list_of_blad.append(blad)
