@@ -1,4 +1,4 @@
-from zsisiec.AInetworkClasses.NewNeuron import NewNeuron
+from AInetworkClasses.NewNeuron import NewNeuron
 
 
 class NeuronLayer:
@@ -22,13 +22,19 @@ class NeuronLayer:
 
     def set_neuron_wagi(self, list_of_wags):
         for i in range(len(self.list_fo_neurons)):
-            for k in range(self.amount_of_wages):
-                self.list_fo_neurons[i].set_wagi(list_of_wags[i])
+            self.list_fo_neurons[i].set_wagi(list_of_wags[i])
+
+    def set_neuron_popwagi(self, list_of_popwags):
+        for i in range(len(self.list_fo_neurons)):
+            self.list_fo_neurons[i].set_popwagi(list_of_popwags[i])
+
+    def set_neuron_delta(self, list_of_delta):
+        for i in range(len(self.list_fo_neurons)):
+            self.list_fo_neurons[i].set_deltawag(list_of_delta[i])
 
     def use_neuron_input(self, list_of_input):
         for i in range(len(self.list_fo_neurons)):
-            for k in range(self.amount_of_wages):
-                self.list_fo_neurons[i].use_wejscia(list_of_input)
+            self.list_fo_neurons[i].use_wejscia(list_of_input)
 
     def use_neuron_input_one_to_one(self, list_of_input):
         for i in range(len(self.list_fo_neurons)):
@@ -45,20 +51,33 @@ class NeuronLayer:
 
         return output_list
 
-    def generate_list_of_wspolczyniki_x_wagi(self, nr_of_prev_neurons):     # ta metoda tez jest do poprawy
+    def generate_list_of_inputs(self):
+        output_list = []
+        for i in self.list_fo_neurons:
+            output_list.append(i.get_wejscia())
+
+        return output_list
+
+    def generate_list_of_wspolczyniki_x_wagi(self, prev_neurons):     # ta metoda tez jest do poprawy
         output_list = []
         suma = 0
-        for i in range(nr_of_prev_neurons):
+        for i in range(len(prev_neurons)):
             output_list.append(0)
+            #output_list[k - 1] += self.list_fo_neurons[m].get_wspolczynik() * self.generate_wagas_table()[k - 1][k]
 
-        for i in range(len(self.list_fo_neurons)):
+        #print("----------------------------------")
+        #print(len(self.list_fo_neurons))
+        #print(len(self.list_fo_neurons[0].get_wagas()))
+        #print("++++++++++++++++++++++++++++++++++++++++++++")
+
+        for m in range(len(self.list_fo_neurons)):
             k = 1
-            while k < self.amount_of_wages:
-                suma += self.list_fo_neurons[i].calc_wspo_x_wag(k)
-                output_list[k - 1] += suma
+            while k < len(self.list_fo_neurons[0].get_wagas()):
+                #print(str(k - 1) + " " + str(m) + " " + str(k))
+                output_list[k - 1] += self.list_fo_neurons[m].calc_wspo_x_wag(k)
                 k += 1
-                suma = 0
 
+        #print("----------------------------------")
         return output_list
 
     def calc_pochodnas(self):
@@ -66,10 +85,8 @@ class NeuronLayer:
             i.calc_pochodna_2()
 
     def calc_wspoczynikas_wyjsciowy(self, list_of_correct_outputs):
-        a = 0
-        for i in self.list_fo_neurons:
-            i.calc_wspolczynik_wyjsciowy(list_of_correct_outputs[a])
-            a += 0
+        for i in range(len(self.list_fo_neurons)):
+            self.list_fo_neurons[i].calc_wspolczynik_wyjsciowy(list_of_correct_outputs[i])
 
     def calc_wspoczynikas_posredni(self, list_suma_waga_x_wspolczynik):     # przez ta metode jest blad sieci
         for i in range(len(self.list_fo_neurons)):
@@ -90,6 +107,19 @@ class NeuronLayer:
         for i in self.list_fo_neurons:
             output_list.append(i.get_wagas())
         return output_list
+
+    def generate_popwagas_table(self):
+        output_list = []
+        for i in self.list_fo_neurons:
+            output_list.append(i.get_popwagi())
+        return output_list
+
+    def generate_deltwag_table(self):
+        output_list = []
+        for i in self.list_fo_neurons:
+            output_list.append(i.get_deltawag())
+        return output_list
+# ----------------------- To powino działać
 
     def get_amount_of_neurons(self):
         return self.amount_of_neurons

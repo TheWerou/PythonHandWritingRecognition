@@ -1,4 +1,4 @@
-from zsisiec.BasicLayer import BasicLayer
+from BasicLayer import BasicLayer
 
 
 def basic_calc():

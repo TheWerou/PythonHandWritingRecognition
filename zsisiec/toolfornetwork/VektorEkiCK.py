@@ -1,6 +1,6 @@
 
 from PIL import Image
-from numpy import asarray, array
+from numpy import asarray, array, round
 import ntpath
 import random
 import os
@@ -21,7 +21,7 @@ class VektorEKiCK:
         helper = array(img_list, dtype=float)
         for i in range(len(helper[:])):
             for k in range(len(helper[i][:])):
-                helper[i][k] = helper[i][k] / 255
+                helper[i][k] = round((helper[i][k] / 255), 3)
         return helper
 
     def make_letter_list(self, amount_of_img_in_list):
@@ -34,8 +34,25 @@ class VektorEKiCK:
             output_list.append(helper)
         return output_list
 
+    def make_letter_list_static(self, amount_of_img_in_list):
+        output_list = []
+        m = 0
+        for i in string.ascii_uppercase:
+            helper = []
+            m = 0
+            for j in range(amount_of_img_in_list):
+                helper.append(self.preper_ek_ck_static(i, m))
+                m += 1
+            output_list.append(helper)
+        return output_list
+
     def preper_ek_ck(self, letter):
         numberr = random.randrange(0, self.data_interval, 1)
+        string_to_img = letter.upper() + "-" + str(numberr)
+        path_to_file = letter.upper() + '\\' + string_to_img
+        return path_to_file
+
+    def preper_ek_ck_static(self, letter, numberr):
         string_to_img = letter.upper() + "-" + str(numberr)
         path_to_file = letter.upper() + '\\' + string_to_img
         return path_to_file

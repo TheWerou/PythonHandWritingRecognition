@@ -14,7 +14,7 @@ class NewNeuron:
         self.popwagi = np.zeros(1)
         self.deltawag = np.zeros(1)
         self.wejscia = np.zeros(1)
-        self.ro = 0.2
+        self.ro = 0.01
 
     #   ---------------------------------------------------- Propagacja w przód
     def add_wejscia(self, amount):
@@ -33,13 +33,25 @@ class NewNeuron:
             self.wejscia[a + 1] = list_of_input[a]
             a += 1
 
-    def use_wejscie_one(self, list_of_input):
+    def use_wejscie_one(self, list_of_input):   # jest ok
         self.wejscia[1] = list_of_input
 
     def set_wagi(self, wagi):
         i = 0
         while i < len(wagi):
             self.wagi[i] = wagi[i]
+            i += 1
+
+    def set_popwagi(self, popwagi):
+        i = 0
+        while i < len(popwagi):
+            self.popwagi[i] = popwagi[i]
+            i += 1
+
+    def set_deltawag(self, deltawag):
+        i = 0
+        while i < len(deltawag):
+            self.deltawag[i] = deltawag[i]
             i += 1
 
     def calc_output(self):
@@ -68,6 +80,9 @@ class NewNeuron:
     def calc_wspo_x_wag(self, nr):
         return self.wagi[nr] * self.wspolczynik
 
+    def get_single_waga(self, nr):
+        return self.wagi[nr]
+
     def calc_pochodna(self):
         self.pochodna = self.wyjscie * (1 - (self.wyjscie**2))
         return self.pochodna
@@ -90,9 +105,17 @@ class NewNeuron:
     def get_wagas(self):
         return self.wagi
 
+    def get_deltawag(self):
+        return self.deltawag
+
+    def get_popwagi(self):
+        return self.popwagi
+
     def update_wagas(self):
         for i in range(len(self.wagi)):
             self.popwagi[i] = self.wagi[i]
-            self.wagi[i] += (0.9 * self.deltawag[i]) + (self.ro * self.wspolczynik * self.wejscia[i])
+            self.wagi[i] = self.wagi[i] + (0.9 * self.deltawag[i]) + (self.ro * self.wspolczynik * self.wejscia[i])
             self.deltawag[i] = self.wagi[i] - self.popwagi[i]
 
+    def get_wejscia(self):
+        return self.wejscia
