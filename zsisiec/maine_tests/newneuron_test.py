@@ -1,14 +1,13 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import math
 
 
-from BasicLayer import BasicLayer
-from AInetworkClasses.NewNeuron import NewNeuron
-from AInetworkClasses.NeuronLayer import NeuronLayer
-from toolfornetwork.ReadCSV import ReadCSV
-from toolfornetwork.VektorEkiCK import VektorEKiCK
-
+from maine_tests.BasicLayer import BasicLayer
+from HandWritingRecognition.AInetworkClasses.NewNeuron import NewNeuron
+from HandWritingRecognition.AInetworkClasses.NeuronLayer import NeuronLayer
+from HandWritingRecognition.toolfornetwork import ReadCSV
+from HandWritingRecognition.toolfornetwork.VektorEkiCK import VektorEKiCK
+import string
 
 def prop_przod_test():
     basic = BasicLayer()
@@ -615,6 +614,32 @@ def test_ck_and_dane():
     print(CK_list)
 
 
+def bint_dec(n):
+    bin_nr = n
+    sum = 0
+    for i in range(len(bin_nr)):
+        sum += int(n[i]) * 2**(len(bin_nr) - i - 1)
+
+    return sum
+
+
+def intepret_output(list_of_output):
+    alph = list(string.ascii_uppercase)
+    for k in range(len(list_of_output)):
+        if list_of_output[k] > 0.5:
+            list_of_output[k] = 1
+        else:
+            list_of_output[k] = 0
+
+    helper_string = ""
+    for i in range(len(list_of_output)):
+        helper_string += str(list_of_output[i])
+
+    output_index = bint_dec(helper_string)
+
+    return alph[output_index]
+
+
 def dec_to_bin(n):
     binary = ""
     result = ""
@@ -673,11 +698,16 @@ def general_input_test():
     warstwy = teach_01(wejsciowe, CK_list, warstwy)
 
 
+def test_full_path_read():
+    dane = r"C:\Users\wojte\OneDrive\Pulpit\Programowanie\Python\ZSI\Data\Obrazki_do_uczenia\A\A-0.png"
+    vector = VektorEKiCK(r"C:\Users\wojte\OneDrive\Pulpit\Programowanie\Python\ZSI\Data\Obrazki_do_uczenia")
+    cos = vector.change_255_to_0_1(vector.png_to_array_full_path(dane)).flatten()
+    print(cos)
 
 #prop_przod_test()
 #upgraded_prop_przod()
 #prop_tyl_test()
-prop_tyl_test_one_to_one()
+#prop_tyl_test_one_to_one()
 #big_input_test()
 #multy_layer_test()
 #use_neuron_input_one_to_one_test()
@@ -686,3 +716,5 @@ prop_tyl_test_one_to_one()
 #test_ck_and_dane()
 #general_input_test()
 #test_get_ck(0)
+#print(intepret_output([0.2 , 0.2, 0.3, 0.4, 0.2]))
+test_full_path_read()

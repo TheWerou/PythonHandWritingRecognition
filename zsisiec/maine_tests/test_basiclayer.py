@@ -1,4 +1,4 @@
-from BasicLayer import BasicLayer
+from maine_tests.BasicLayer import BasicLayer
 
 
 def basic_calc():

@@ -1,6 +1,6 @@
-from zsisiec.AInetworkClasses.NeuronLayer import NeuronLayer
-from zsisiec.toolfornetwork.ReadCSV import ReadCSV
-from zsisiec.toolfornetwork.VektorEkiCK import VektorEKiCK
+from HandWritingRecognition.AInetworkClasses.NeuronLayer import NeuronLayer
+from HandWritingRecognition.toolfornetwork.ReadCSV import ReadCSV
+from HandWritingRecognition.toolfornetwork.VektorEkiCK import VektorEKiCK
 import numpy as np
 
 def test_get_ck():
