@@ -62,10 +62,11 @@ class MainWinPersonal(Ui_MainWindow):
             dialog = QFileDialog()
             img_path, _ = dialog.getOpenFileName()
             if img_path.endswith(".png"):
-                self.handRec.set_paths()
                 pixmap = QPixmap(img_path)
                 self.ImgToShow.setPixmap(pixmap)
                 self.LabelOutputCheck.setText("Nice pic let's find out what it is")
+                self.dataModel.set_path_to_uploaded_png(img_path)
+                self.handRec.set_paths()
             else:
                 self.LabelOutputCheck.setText("Sorry file must be .png")
 
@@ -130,7 +131,7 @@ class MainWinPersonal(Ui_MainWindow):
 
             for k in range(len(self.handRec.layer3.get_outputs())):
                 blad += math.fabs(CK_list[k] - helper[k])
-
+            list_of_blad = []
             if ((iter/ilekrokow) * 100) % 20 == 0:
                 list_of_blad.append(blad)
                 self.handRec.save_wagas(rand_letter)

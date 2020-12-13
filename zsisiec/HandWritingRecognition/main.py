@@ -219,5 +219,3 @@ class ZSIproject:
         self.csv_reader.write_log_to_csv("log_bledu", list_of_blad)
 
 
-#program = ZSIproject()
-#program.main(500)

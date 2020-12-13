@@ -16,6 +16,8 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
+
     ui = MainWinPersonal(ai, program_model)
     ui.setupUi(MainWindow)
+
     sys.exit(app.exec_())
