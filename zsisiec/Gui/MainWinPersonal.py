@@ -119,7 +119,6 @@ class MainWinPersonal(Ui_MainWindow):
 
         while iter < ilekrokow:
             # print("------")
-            blad = 0
             rand_letter = np.random.randint(26)
             rand_nr = np.random.randint(il)
 
@@ -127,16 +126,27 @@ class MainWinPersonal(Ui_MainWindow):
             wejsciowe = self.handRec.get_ek(rand_letter, rand_nr, dane)
             self.handRec.teach_01(wejsciowe, CK_list)
 
-            helper = self.handRec.layer3.get_outputs()
-
-            for k in range(len(self.handRec.layer3.get_outputs())):
-                blad += math.fabs(CK_list[k] - helper[k])
-            list_of_blad = []
+            list_of_blad_new = []
             if ((iter/ilekrokow) * 100) % 20 == 0:
-                list_of_blad.append(blad)
+
+                main_blad = 0
+                for k in range(26):
+                    blad = 0
+                    for m in range(il):
+                        CK_list = self.handRec.get_ck(k)
+                        wejsciowe = self.handRec.get_ek(k, m, dane)
+                        helper = self.handRec.calc_out(wejsciowe, 1)
+
+                        for h in range(len(helper)):
+                            blad += math.fabs(CK_list[h] - helper[h])
+
+                    main_blad += blad
+
+                list_of_blad_new.append(main_blad)
                 self.handRec.save_wagas(rand_letter)
-                self.handRec.csv_reader.write_log_to_csv("log_bledu", list_of_blad)
+                self.handRec.csv_reader.write_log_to_csv("new_log_bledu", list_of_blad_new)
                 self.progressBar.setValue(((iter/ilekrokow) * 100))
+
 
             iter += 1
 

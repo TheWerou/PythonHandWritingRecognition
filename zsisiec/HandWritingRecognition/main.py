@@ -41,12 +41,13 @@ class ZSIproject:
     def creat_empty_wagas(self):
         pass
 
-    def calc_out(self, dane):
+    def calc_out(self, dane, tryb=0):
         layer_1 = self.layer1
         layer_2 = self.layer2
         layer_3 = self.layer3
 
-        dane = self.vector.change_255_to_0_1(self.vector.png_to_array_full_path(dane)).flatten()
+        if tryb == 0:
+            dane = self.vector.change_255_to_0_1(self.vector.png_to_array_full_path(dane)).flatten()
 
         layer_1.use_neuron_input_one_to_one(dane)  # tu wprowadzic dane wejsciowe
         layer_1.calc_neurons_output()
@@ -57,7 +58,10 @@ class ZSIproject:
         layer_3.use_neuron_input(layer_2.generate_list_of_outputs())
         layer_3.calc_neurons_output()
 
-        return self.intepret_output(layer_3.get_outputs())
+        if tryb == 0:
+            return self.intepret_output(layer_3.get_outputs())
+        else:
+            return layer_3.get_outputs()
 
     def teach_01(self, dane, CK):
         layer_1 = self.layer1
@@ -124,7 +128,6 @@ class ZSIproject:
             helper_string += str(list_of_output[i])
 
         output_index = self.bin_to_dec(helper_string)
-
         return alph[output_index]
 
     def bin_to_dec(self, n):
@@ -193,7 +196,6 @@ class ZSIproject:
         blad = 0
         while iter < ilekrokow:
             #print("------")
-            blad = 0
             list_of_blad = []
             rand_letter = np.random.randint(26)
             rand_nr = np.random.randint(il)
@@ -202,15 +204,25 @@ class ZSIproject:
             wejsciowe = self.get_ek(rand_letter, rand_nr, dane)
             self.teach_01(wejsciowe, CK_list)
 
-            helper = self.layer3.get_outputs()
-            for k in range(len(self.layer3.get_outputs())):
-                blad += math.fabs(CK_list[k] - helper[k])
+            list_of_blad_new = []
+            if iter % 200 == 1:
+                main_blad = 0
+                for k in range(26):
+                    blad = 0
+                    for m in range(il):
+                        CK_list = self.get_ck(k)
+                        wejsciowe = self.get_ek(k, m, dane)
+                        helper = self.calc_out(wejsciowe, 1)
 
-            print(blad)
-            if iter % 20 == 1:
-                list_of_blad.append(blad)
+                        for h in range(len(helper)):
+                            blad += math.fabs(CK_list[h] - helper[h])
+
+                    main_blad += blad
+
+                list_of_blad_new.append(main_blad)
+                print(list_of_blad_new)
                 self.save_wagas(rand_letter)
-                self.csv_reader.write_log_to_csv("log_bledu", list_of_blad)
+                self.csv_reader.write_log_to_csv("log_bledu_new", list_of_blad_new)
             #print(dane[rand_letter][rand_nr])
             #print(iter)
             iter += 1
